@@ -1,0 +1,37 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+@use '../../styles/shared' as *;
+
+.location-form {
+  .modal__body {
+    padding: $spacing-lg;
+  }
+
+  &__cancel-btn {
+    @include button-secondary;
+  }
+
+  &__save-btn {
+    @include button-primary;
+
+    &:disabled {
+      background-color: $gray-400;
+      cursor: not-allowed;
+    }
+  }
+
+  &__position-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-md;
+  }
+}
+
+// Responsive adjustments
+@include tablet {
+  .location-form {
+    &__position-group {
+      grid-template-columns: 1fr;
+    }
+  }
+}

@@ -1,0 +1,255 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+@use '../styles/animations' as *;
+
+.overview {
+  &__welcome {
+    @include card-base;
+    padding: $spacing-xl;
+    margin-bottom: $spacing-xl;
+    text-align: center;
+
+    &-title {
+      margin: 0 0 $spacing-md 0;
+      color: $gray-800;
+      font-size: $font-size-xl;
+      font-weight: $font-weight-semibold;
+    }
+
+    &-text {
+      margin: 0;
+      color: $gray-600;
+      line-height: 1.6;
+      font-size: $font-size-base;
+    }
+  }
+
+  &__kpi-section {
+    margin-bottom: $spacing-xl;
+  }
+
+  &__section-title {
+    margin: 0 0 $spacing-lg 0;
+    color: $gray-800;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__kpi-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: $spacing-lg;
+    margin-bottom: $spacing-xl;
+  }
+
+  &__recent-section {
+    margin-bottom: $spacing-xl;
+  }
+
+  &__recent-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: $spacing-lg;
+  }
+}
+
+// KPI Card Component
+.kpi-card {
+  @include card-base;
+  @include card-hover;
+  padding: $spacing-lg;
+  display: flex;
+  align-items: center;
+  gap: $spacing-md;
+
+  &__icon {
+    flex-shrink: 0;
+  }
+
+  &__icon-circle {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    @include flex-center;
+    font-size: 1.25rem;
+
+    &--products {
+      background-color: #DBEAFE;
+      color: $secondary-color;
+    }
+
+    &--units {
+      background-color: #D1FAE5;
+      color: $success-color;
+    }
+
+    &--locations {
+      background-color: #FEF3C7;
+      color: $warning-color;
+    }
+  }
+
+  &__content {
+    flex: 1;
+  }
+
+  &__title {
+    margin: 0 0 $spacing-sm 0;
+    color: $gray-500;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__value {
+    margin: 0 0 $spacing-xs 0;
+    color: $gray-800;
+    font-size: 2rem;
+    font-weight: $font-weight-bold;
+    line-height: 1;
+  }
+
+  &__description {
+    margin: 0;
+    color: $gray-400;
+    font-size: $font-size-xs;
+  }
+}
+
+// Recent Records Component
+.recent-card {
+  @include card-base;
+  padding: $spacing-lg;
+
+  &__title {
+    margin: 0 0 $spacing-md 0;
+    color: $gray-800;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__loading {
+    @include flex-center;
+    padding: $spacing-lg;
+  }
+
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+
+  &__empty {
+    padding: $spacing-lg;
+    text-align: center;
+    color: $gray-400;
+    font-size: $font-size-sm;
+    font-style: italic;
+  }
+}
+
+.recent-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $radius-md;
+  transition: background-color $transition-base;
+
+  &:hover {
+    background-color: $bg-hover;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+
+  &__name {
+    font-weight: $font-weight-medium;
+    color: $gray-800;
+    font-size: $font-size-sm;
+  }
+
+  &__price {
+    color: $success-color;
+    font-weight: $font-weight-semibold;
+    font-size: $font-size-xs;
+  }
+
+  &__description {
+    color: $gray-500;
+    font-size: $font-size-xs;
+  }
+
+  &__location {
+    color: $secondary-color;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-xs;
+    background-color: #DBEAFE;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-sm;
+  }
+
+  &__id {
+    color: $gray-400;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-medium;
+    background-color: $gray-100;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-sm;
+  }
+}
+
+// Loading and Error States
+.loading {
+  @include flex-center;
+  flex-direction: column;
+  padding: $spacing-2xl;
+  @include card-base;
+
+  &__spinner {
+    @include loading-spinner;
+    margin-bottom: $spacing-md;
+
+    &--small {
+      @include loading-spinner(1.5rem);
+      margin-bottom: 0;
+    }
+  }
+
+  &__text {
+    color: $gray-500;
+    font-size: $font-size-sm;
+  }
+}
+
+.error {
+  @include flex-center;
+  flex-direction: column;
+  padding: $spacing-2xl;
+  @include card-base;
+
+  &__text {
+    color: $error-color;
+    margin-bottom: $spacing-md;
+    text-align: center;
+  }
+
+  &__retry {
+    @include button-primary;
+  }
+}
+
+// Responsive Design
+@include tablet {
+  .overview__kpi-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .overview__recent-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,62 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="card-header">
+      <h2>Login Administrativo</h2>
+      <p>Digite suas credenciais para acessar o painel administrativo</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <div class="form-group">
+        <label for="username">Nome de Usuário</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="form-input"
+          [class.error]="username?.invalid && username?.touched"
+          placeholder="Digite seu nome de usuário"
+        />
+        <div *ngIf="username?.invalid && username?.touched" class="field-error">
+          Nome de usuário é obrigatório
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          class="form-input"
+          [class.error]="password?.invalid && password?.touched"
+          placeholder="Digite sua senha"
+        />
+        <div *ngIf="password?.invalid && password?.touched" class="field-error">
+          Senha é obrigatória
+        </div>
+      </div>
+
+      <div *ngIf="error" class="error-message">
+        {{ error }}
+      </div>
+
+      <div class="form-actions">
+        <button
+          type="button"
+          class="back-btn"
+          (click)="goHome()"
+        >
+          Voltar ao Início
+        </button>
+        <button
+          type="submit"
+          class="login-btn"
+          [disabled]="loginForm.invalid || loading"
+        >
+          <span *ngIf="loading">Entrando...</span>
+          <span *ngIf="!loading">Entrar</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

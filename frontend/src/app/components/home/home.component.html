@@ -1,0 +1,39 @@
+<div class="home-container">
+  <header class="header">
+    <div class="logo">
+      <h1>Map Market</h1>
+    </div>
+    <button 
+      *ngIf="isAuthenticated" 
+      class="admin-btn admin-btn--dashboard" 
+      (click)="navigateToDashboard()"
+    >
+      Voltar para Painel Administrativo
+    </button>
+  </header>
+
+
+  <main class="main-content">
+    <div class="sidebar-wrapper sidebar-wrapper--left">
+      <app-sidebar class="sidebar-card"></app-sidebar>
+    </div>
+    <div class="map-container">
+      <app-map></app-map>
+    </div>
+    <div class="sidebar-wrapper sidebar-wrapper--right">
+      <div class="sidebar-card">
+        <div class="right-sidebar-content">
+          <app-shelf [location]="selectedLocation"></app-shelf>
+          <div 
+            *ngIf="selectedLocation"
+            class="product-info-card"
+          >
+            <div class="product-name">{{ selectedLocation.product.name }}</div>
+            <div class="product-price">{{ formatPrice(selectedLocation.product.price) }}</div>
+            <button class="ok-button" (click)="clearSelection()">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

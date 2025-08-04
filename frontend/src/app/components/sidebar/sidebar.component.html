@@ -1,0 +1,37 @@
+<div class="sidebar-container">
+  <div class="search-section">
+    <input
+      type="text"
+      placeholder="Buscar produtos..."
+      [formControl]="searchControl"
+      class="search-input"
+    />
+  </div>
+
+  <div class="products-section">
+    <h3 class="section-title">Produtos</h3>
+    
+    <div *ngIf="loading" class="loading">
+      Carregando produtos...
+    </div>
+    
+    <div *ngIf="error" class="error">
+      {{ error }}
+    </div>
+    
+    <div class="products-list">
+      <div
+        *ngFor="let product of filteredProducts"
+        class="product-item"
+        [class.selected]="isProductSelected(product)"
+        (click)="onProductClick(product)"
+      >
+        <div class="product-name">{{ product.name }}</div>
+      </div>
+      
+      <div *ngIf="filteredProducts.length === 0 && !loading" class="no-products">
+        Nenhum produto encontrado
+      </div>
+    </div>
+  </div>
+</div>

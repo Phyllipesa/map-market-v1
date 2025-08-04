@@ -1,0 +1,12 @@
+// Import shared variables from admin dashboard
+@forward '../../admin-dashboard/styles/variables';
+
+// Home-specific variables
+$header-height: 8rem; // 26% increase from original
+$header-padding-vertical: 1.25rem;
+$header-padding-horizontal: 2rem;
+
+$sidebar-width: 250px;
+$sidebar-width-right: 200px;
+
+$main-content-spacing: 1rem;

@@ -1,0 +1,115 @@
+<div class="dashboard">
+  <!-- Header -->
+  <header class="dashboard__header">
+    <div class="dashboard__header-content">
+      <h1 class="dashboard__title">Painel Administrativo</h1>
+      <div class="dashboard__header-actions">
+        <button class="dashboard__home-btn" (click)="goToHome()">
+          Ir para Início
+        </button>
+        <button class="dashboard__logout-btn" (click)="onLogout()">
+          Sair
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="dashboard__content">
+    <!-- Navigation Tabs -->
+    <div class="dashboard__nav">
+      <button 
+        class="dashboard__nav-tab" 
+        [class.dashboard__nav-tab--active]="activeTab === 'overview'"
+        (click)="setActiveTab('overview')"
+      >
+        📊 Visão Geral
+      </button>
+      <button 
+        class="dashboard__nav-tab" 
+        [class.dashboard__nav-tab--active]="activeTab === 'products'"
+        (click)="setActiveTab('products')"
+      >
+        📦 Produtos
+      </button>
+      <button 
+        class="dashboard__nav-tab" 
+        [class.dashboard__nav-tab--active]="activeTab === 'shelving'"
+        (click)="setActiveTab('shelving')"
+      >
+        🏪 Estantes
+      </button>
+      <button 
+        class="dashboard__nav-tab" 
+        [class.dashboard__nav-tab--active]="activeTab === 'locations'"
+        (click)="setActiveTab('locations')"
+      >
+        📍 Localizações
+      </button>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="dashboard__tab-content">
+      <app-overview 
+        *ngIf="activeTab === 'overview'"
+        class="fade-in">
+      </app-overview>
+      
+      <app-products 
+        *ngIf="activeTab === 'products'"
+        class="fade-in"
+        (showToast)="onShowToast($event)"
+        (showDeleteConfirmation)="showDeleteConfirmation($event)">
+      </app-products>
+      
+      <app-shelving 
+        *ngIf="activeTab === 'shelving'"
+        class="fade-in"
+        (showToast)="onShowToast($event)"
+        (showDeleteConfirmation)="showDeleteConfirmation($event)">
+      </app-shelving>
+      
+      <app-locations 
+        *ngIf="activeTab === 'locations'"
+        class="fade-in"
+        (showToast)="onShowToast($event)"
+        (showDeleteConfirmation)="showDeleteConfirmation($event)">
+      </app-locations>
+    </div>
+  </main>
+
+  <!-- Delete Confirmation Modal -->
+  <div *ngIf="showDeleteModal" class="modal__overlay delete-modal" (click)="cancelDelete()">
+    <div class="modal__content" (click)="$event.stopPropagation()">
+      <div class="modal__header">
+        <h3>Confirmar Exclusão</h3>
+        <button class="modal__close" (click)="cancelDelete()">✕</button>
+      </div>
+      <div class="delete-modal__body">
+        <div class="delete-modal__icon">🗑️</div>
+        <h4 class="delete-modal__title">Tem certeza?</h4>
+        <p class="delete-modal__message">
+          Você está prestes a excluir <span class="delete-modal__item-name">"{{ getDeleteItemName() }}"</span>. 
+          Esta ação não pode ser desfeita.
+        </p>
+        <div class="delete-modal__actions">
+          <button class="delete-modal__cancel-btn" (click)="cancelDelete()">
+            Cancelar
+          </button>
+          <button class="delete-modal__confirm-btn" (click)="confirmDelete()">
+            Excluir
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <app-toast
+    *ngIf="toastMessage"
+    [message]="toastMessage.message"
+    [type]="toastMessage.type"
+    [duration]="toastMessage.duration ?? 3000"
+    (dismissed)="onToastDismissed()">
+  </app-toast>
+</div>

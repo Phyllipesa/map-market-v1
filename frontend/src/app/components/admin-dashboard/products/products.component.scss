@@ -1,0 +1,60 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+@use '../styles/shared' as *;
+
+.products {
+  // Additional specific styles for products component
+  .table__cell {
+    &:first-child {
+      font-weight: $font-weight-medium;
+      color: $gray-600;
+    }
+
+    &:nth-child(2) {
+      font-weight: $font-weight-medium;
+    }
+
+    &:nth-child(3) {
+      color: $success-color;
+      font-weight: $font-weight-semibold;
+    }
+  }
+}
+
+// Responsive adjustments
+@include tablet {
+  .products .table__actions {
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+
+  .table {
+    &__header {
+      &:nth-child(1) { // ID column
+        display: none;
+      }
+    }
+
+    &__cell {
+      &:nth-child(1) { // ID column
+        display: none;
+      }
+    }
+  }
+}
+
+@include mobile {
+  .table {
+    &__header {
+      &:nth-child(1) { // ID
+        display: none;
+      }
+    }
+
+    &__cell {
+      &:nth-child(1) { // ID
+        display: none;
+      }
+    }
+  }
+}

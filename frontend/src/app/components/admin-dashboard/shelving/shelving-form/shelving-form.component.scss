@@ -1,0 +1,36 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+@use '../../styles/shared' as *;
+
+.shelving-form {
+  .modal__body {
+    padding: $spacing-lg;
+  }
+
+  &__cancel-btn {
+    @include button-secondary;
+  }
+
+  &__save-btn {
+    @include button-primary;
+
+    &:disabled {
+      background-color: $gray-400;
+      cursor: not-allowed;
+    }
+  }
+}
+
+// Responsive adjustments
+@include tablet {
+  .shelving-form {
+    .modal__content {
+      margin: $spacing-md;
+      width: calc(100% - #{$spacing-xl});
+    }
+
+    .modal__actions {
+      flex-direction: column;
+    }
+  }
+}

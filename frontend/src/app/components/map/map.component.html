@@ -1,0 +1,47 @@
+<div class="map-container">
+  <div *ngIf="loading" class="loading">
+    Carregando mapa...
+  </div>
+  
+  <div *ngIf="error" class="error">
+    {{ error }}
+  </div>
+  
+  <div class="shelving-grid" *ngIf="!loading && !error">
+    <div
+      *ngFor="let unit of shelvingUnits"
+      class="shelving-unit"
+      [attr.data-unit]="unit.unit"
+    >
+      <div class="sides-container">
+        <!-- Side A -->
+        <div class="side side-a">
+          <div class="side-header">Lado A</div>
+          <div class="parts-grid">
+            <div
+              *ngFor="let part of getPartsArray()"
+              class="part"
+              [class.highlighted]="isPartHighlighted(unit.id, 'A', part)"
+            >
+              <div class="part-label">P{{ part }}</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Side B -->
+        <div class="side side-b">
+          <div class="side-header">Lado B</div>
+          <div class="parts-grid">
+            <div
+              *ngFor="let part of getPartsArray()"
+              class="part"
+              [class.highlighted]="isPartHighlighted(unit.id, 'B', part)"
+            >
+              <div class="part-label">P{{ part }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+server:
+    port: 8888
+
+cors:
+    allowed-origins: http://localhost:4200
+
+security:
+    jwt:
+        token:
+            secret-key: 53ccr37
+            expire-length: 3600000
+
+spring:
+    datasource:
+        url: jdbc:mysql://localhost:8888/map_market_dev
+        username: root
+        password: root123
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    jpa:
+        hibernate:
+            ddl-auto: none
+        show-sql: false
+
+flyway:
+    enabled: true
+    locations: classpath:db.migration
+
+test:
+    user: alex
+    password: manager123

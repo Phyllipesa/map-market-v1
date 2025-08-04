@@ -1,0 +1,138 @@
+.map-container {
+  height: 100%;
+  background-color: #F9FAFB;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow: auto;
+
+  .loading, 
+  .error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 1rem;
+    color: #6B7280;
+  }
+
+  .error {
+    color: #EF4444;
+  }
+}
+
+.shelving-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 150px);
+  gap: 4.5rem;
+  min-height: 400px;
+  justify-content: start;
+}
+
+.shelving-unit {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 2px solid #E5E7EB;
+  width: 185px;
+  height: 350px;
+
+  .sides-container {
+    display: flex;
+    height: 100%;
+  }
+
+  .side {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    &-a {
+      border-right: 1px solid #E5E7EB;
+    }
+
+    &-header {
+      background-color: #1F2937;
+      color: white;
+      padding: 0.35rem;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.625rem;
+    }
+  }
+
+  .parts-grid {
+    flex: 1;
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+  }
+
+  .part {
+    border-bottom: 1px solid #E5E7EB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    position: relative;
+    background-color: #F9FAFB;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &.highlighted {
+      background-color: #FBBF24;
+      animation: pulse 2s infinite;
+
+      .part-label {
+        color: #1F2937;
+        font-weight: 600;
+      }
+    }
+
+    &-label {
+      font-size: 0.5rem;
+      color: #6B7280;
+      font-weight: 500;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}
+
+@media (max-width: 768px) {
+  .shelving-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+  
+  .shelving-unit {
+    min-height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .map-container {
+    padding: 0.5rem;
+  }
+  
+  .shelving-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .shelving-unit {
+    min-height: 200px;
+
+    .sides-container {
+      flex-direction: column;
+    }
+
+    .side-a {
+      border-right: none;
+      border-bottom: 1px solid #E5E7EB;
+    }
+  }
+}

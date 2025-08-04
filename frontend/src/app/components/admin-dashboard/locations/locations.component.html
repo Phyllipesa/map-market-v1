@@ -1,0 +1,114 @@
+<div class="locations">
+  <!-- Section Header -->
+  <div class="section-header">
+    <h2 class="section-header__title">Gerenciamento de Localizações</h2>
+    <div class="section-header__actions">
+      <button 
+        class="section-header__action section-header__action--secondary" 
+        (click)="toggleUnassignedFilter()"
+        [class.section-header__action--active]="showOnlyUnassigned"
+      >
+        {{ showOnlyUnassigned ? '📋 Mostrar Todas' : '🔗 Vincular Produto' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    <div class="loading__spinner"></div>
+    <p class="loading__text">Carregando localizações...</p>
+  </div>
+
+  <!-- Locations Table -->
+  <div *ngIf="!loading" class="table__container">
+    <table class="table__element">
+      <thead>
+        <tr>
+          <th 
+            *ngFor="let column of tableColumns" 
+            class="table__header"
+            [class.table__header--sortable]="column.sortable"
+            [style.width]="column.width"
+            (click)="sortBy(column)"
+          >
+            {{ column.label }}
+            <span *ngIf="column.sortable" class="table__sort-icon">↕️</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let location of filteredLocations" class="table__row">
+          <td *ngFor="let column of tableColumns" class="table__cell">
+            <ng-container [ngSwitch]="column.field">
+              <!-- ID Column -->
+              <span *ngSwitchCase="'id'">{{ location.id }}</span>
+              
+              <!-- Product Name Column -->
+              <span *ngSwitchCase="'product.name'" class="locations__product-name">
+                {{ getProductDisplayName(location) }}
+              </span>
+              
+              <!-- Shelving Unit Column -->
+              <span *ngSwitchCase="'shelving_unit_id'">{{ location.shelving_unit_id }}</span>
+              
+              <!-- Side Column -->
+              <span *ngSwitchCase="'side'">{{ location.side }}</span>
+              
+              <!-- Part Column -->
+              <span *ngSwitchCase="'part'">{{ location.part }}</span>
+              
+              <!-- Shelf Column -->
+              <span *ngSwitchCase="'shelf'">{{ location.shelf }}</span>
+              
+              <!-- Actions Column -->
+              <div *ngSwitchCase="'actions'" class="table__actions">
+                <button 
+                  class="action-btn action-btn--edit" 
+                  (click)="editLocation(location)"
+                  title="Editar Localização"
+                >
+                  ✏️
+                </button>
+                <button 
+                  class="action-btn action-btn--delete" 
+                  (click)="deleteLocation(location)"
+                  title="Desvincular Produto"
+                  [disabled]="!hasAssignedProduct(location)"
+                >
+                  🗑️
+                </button>
+              </div>
+              
+              <!-- Default case for other columns -->
+              <span *ngSwitchDefault>{{ getColumnValue(location, column) }}</span>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Empty state -->
+    <div *ngIf="filteredLocations.length === 0" class="table__empty">
+      <p *ngIf="!showOnlyUnassigned">Nenhuma localização encontrada</p>
+      <p *ngIf="showOnlyUnassigned">Nenhuma localização sem produto encontrada</p>
+    </div>
+  </div>
+
+  <!-- Location Form Modal -->
+  <app-location-form
+    [visible]="showModal"
+    [products]="products"
+    [shelvingUnits]="shelvingUnits"
+    [editingLocation]="editingLocation"
+    (onSave)="onLocationFormSave($event)"
+    (onCancel)="onLocationFormCancel()">
+  </app-location-form>
+
+  <!-- Confirmation Dialog -->
+  <app-confirmation-dialog
+    [visible]="showConfirmDialog"
+    [data]="confirmDialogData"
+    (confirmed)="onDeleteConfirmed()"
+    (cancelled)="onDeleteCancelled()">
+  </app-confirmation-dialog>
+</div>

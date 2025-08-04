@@ -1,0 +1,23 @@
+cors:
+    allowed-origins: ${CLIENT_ORIGIN}
+security:
+    jwt:
+        token:
+            secret-key: ${SECRET_KEY}
+            expire-length: ${EXPIRE_TIME}
+spring:
+    datasource:
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: ${DB_URL}
+        username: ${DB_USER}
+        password: ${DB_PASSWORD}
+    jpa:
+        hibernate:
+            ddl-auto: update
+        show-sql: false
+logging:
+    level:
+        org.hibernate.orm.connections.pooling: WARN
+flyway:
+    enabled: true
+    locations: classpath:db.migration

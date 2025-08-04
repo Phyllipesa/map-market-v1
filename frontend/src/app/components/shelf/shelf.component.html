@@ -1,0 +1,12 @@
+<div class="shelf-container">
+  <div class="shelf-header">Prateleira do Produto</div>
+  <div class="shelves-grid">
+    <div
+      *ngFor="let shelf of getShelvesArray()"
+      class="shelf"
+      [class.highlighted]="isShelfHighlighted(shelf)"
+    >
+      <div class="shelf-label">P{{ shelf }}</div>
+    </div>
+  </div>
+</div>

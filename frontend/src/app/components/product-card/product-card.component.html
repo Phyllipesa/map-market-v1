@@ -1,0 +1,39 @@
+<div class="product-card-overlay" (click)="onOkClick()">
+  <div class="product-card" (click)="$event.stopPropagation()">
+    <div class="card-header">
+      <h3>Produto Encontrado</h3>
+    </div>
+    
+    <div class="card-content">
+      <div class="product-info">
+        <div class="product-name">{{ location.product.name }}</div>
+        <div class="product-price">{{ formatPrice(location.product.price) }}</div>
+      </div>
+      
+      <div class="location-info">
+        <div class="location-item">
+          <span class="label">Unidade:</span>
+          <span class="value">{{ location.shelving_unit_id }}</span>
+        </div>
+        <div class="location-item">
+          <span class="label">Lado:</span>
+          <span class="value">{{ location.side }}</span>
+        </div>
+        <div class="location-item">
+          <span class="label">Parte:</span>
+          <span class="value">{{ location.part }}</span>
+        </div>
+        <div class="location-item">
+          <span class="label">Prateleira:</span>
+          <span class="value">{{ location.shelf }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card-actions">
+      <button class="ok-button" (click)="onOkClick()">
+        OK
+      </button>
+    </div>
+  </div>
+</div>

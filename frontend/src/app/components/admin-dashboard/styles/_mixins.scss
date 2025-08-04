@@ -1,0 +1,172 @@
+@use '../styles/variables' as *;
+
+// Button Mixins
+@mixin button-base {
+  border: none;
+  border-radius: $radius-md;
+  font-weight: $font-weight-medium;
+  cursor: pointer;
+  transition: all $transition-base;
+  font-family: inherit;
+  font-size: inherit;
+  
+  &:disabled {
+    background-color: $gray-400;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  &:focus {
+    outline: 2px solid $secondary-color;
+    outline-offset: 2px;
+  }
+}
+
+@mixin button-primary {
+  @include button-base;
+  background-color: $primary-color;
+  color: white;
+  padding: 0.75rem $spacing-lg;
+
+  &:hover:not(:disabled) {
+    background-color: $primary-hover;
+    transform: translateY(-1px);
+  }
+}
+
+@mixin button-secondary {
+  @include button-base;
+  background-color: transparent;
+  color: $gray-500;
+  border: 1px solid $gray-300;
+  padding: 0.75rem $spacing-lg;
+
+  &:hover:not(:disabled) {
+    background-color: $bg-hover;
+    color: $gray-700;
+  }
+}
+
+@mixin button-danger {
+  @include button-base;
+  background-color: $error-color;
+  color: white;
+  padding: 0.75rem $spacing-lg;
+
+  &:hover:not(:disabled) {
+    background-color: $error-hover;
+  }
+}
+
+// Card Mixins
+@mixin card-base {
+  background-color: $bg-card;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-md;
+  overflow: hidden;
+}
+
+@mixin card-hover {
+  transition: transform $transition-base, box-shadow $transition-base;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: $shadow-lg;
+  }
+}
+
+// Form Mixins
+@mixin form-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid $gray-300;
+  border-radius: $radius-md;
+  font-size: $font-size-sm;
+  transition: border-color $transition-base, box-shadow $transition-base;
+  font-family: inherit;
+
+  &:focus {
+    outline: none;
+    border-color: $secondary-color;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  }
+
+  &::placeholder {
+    color: $gray-400;
+  }
+}
+
+@mixin form-label {
+  display: block;
+  margin-bottom: $spacing-sm;
+  font-weight: $font-weight-medium;
+  color: $gray-700;
+  font-size: $font-size-sm;
+}
+
+// Layout Mixins
+@mixin container {
+  max-width: $large;
+  margin: 0 auto;
+  padding: 0 $spacing-xl;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+// Loading Mixins
+@mixin loading-spinner($size: 2rem, $color: $primary-color) {
+  width: $size;
+  height: $size;
+  border: 3px solid $gray-200;
+  border-top: 3px solid $color;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+// Responsive Mixins
+@mixin mobile {
+  @media (max-width: $mobile) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: $tablet) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+// Text Mixins
+@mixin text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

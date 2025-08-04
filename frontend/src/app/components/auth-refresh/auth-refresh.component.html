@@ -1,0 +1,57 @@
+<div class="refresh-container">
+  <div class="refresh-card">
+    <div class="refresh-card__header">
+      <h2 class="refresh-card__title">Renovar Acesso</h2>
+      <p class="refresh-card__subtitle">Digite seu nome de usuário para renovar o token de acesso</p>
+    </div>
+
+    <form [formGroup]="refreshForm" (ngSubmit)="onSubmit()" class="refresh-form">
+      <div class="refresh-form__group">
+        <label for="username" class="refresh-form__label">Nome de Usuário</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          class="refresh-form__input"
+          [class.refresh-form__input--error]="username?.invalid && username?.touched"
+          placeholder="Digite seu nome de usuário"
+        />
+        <div *ngIf="username?.invalid && username?.touched" class="refresh-form__error">
+          Nome de usuário é obrigatório
+        </div>
+      </div>
+
+      <div *ngIf="error" class="refresh-message refresh-message--error">
+        {{ error }}
+      </div>
+
+      <div *ngIf="success" class="refresh-message refresh-message--success">
+        ✅ Acesso renovado com sucesso! Redirecionando para o painel...
+      </div>
+
+      <div class="refresh-form__actions">
+        <button
+          type="button"
+          class="refresh-btn refresh-btn--secondary"
+          (click)="goToLogin()"
+        >
+          Voltar ao Login
+        </button>
+        <button
+          type="submit"
+          class="refresh-btn refresh-btn--primary"
+          [disabled]="refreshForm.invalid || loading"
+        >
+          <span *ngIf="loading">Renovando...</span>
+          <span *ngIf="!loading">Renovar Acesso</span>
+        </button>
+      </div>
+    </form>
+
+    <div class="refresh-card__footer">
+      <button class="refresh-link" (click)="goHome()">
+        ← Voltar ao Início
+      </button>
+    </div>
+  </div>
+</div>

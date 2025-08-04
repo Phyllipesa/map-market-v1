@@ -1,0 +1,133 @@
+<div class="overview">
+  <!-- Welcome Card -->
+  <div class="overview__welcome">
+    <h2 class="overview__welcome-title">Bem-vindo ao Painel Administrativo</h2>
+    <p class="overview__welcome-text">Aqui você pode gerenciar produtos, organizar as estantes e controlar a alocação de itens no supermercado — tudo em um só lugar.</p>
+  </div>
+
+  <!-- KPI Cards Section -->
+  <div class="overview__kpi-section">
+    <h3 class="overview__section-title">Visão Geral do Sistema</h3>
+    
+    <div *ngIf="loading" class="loading">
+      <div class="loading__spinner"></div>
+      <p class="loading__text">Carregando dados do painel...</p>
+    </div>
+
+    <div *ngIf="error" class="error">
+      <p class="error__text">{{ error }}</p>
+      <button class="error__retry" (click)="loadDashboardData()">Tentar Novamente</button>
+    </div>
+
+    <div *ngIf="!loading && !error" class="overview__kpi-cards">
+      <div class="kpi-card kpi-card--products">
+        <div class="kpi-card__icon">
+          <div class="kpi-card__icon-circle kpi-card__icon-circle--products">📦</div>
+        </div>
+        <div class="kpi-card__content">
+          <h4 class="kpi-card__title">Total de Produtos</h4>
+          <div class="kpi-card__value">{{ dashboardData.totalProducts }}</div>
+          <p class="kpi-card__description">Produtos no catálogo</p>
+        </div>
+      </div>
+
+      <div class="kpi-card kpi-card--units">
+        <div class="kpi-card__icon">
+          <div class="kpi-card__icon-circle kpi-card__icon-circle--units">🏪</div>
+        </div>
+        <div class="kpi-card__content">
+          <h4 class="kpi-card__title">Unidades de Estante</h4>
+          <div class="kpi-card__value">{{ dashboardData.totalShelvingUnits }}</div>
+          <p class="kpi-card__description">Estantes ativas</p>
+        </div>
+      </div>
+
+      <div class="kpi-card kpi-card--locations">
+        <div class="kpi-card__icon">
+          <div class="kpi-card__icon-circle kpi-card__icon-circle--locations">📍</div>
+        </div>
+        <div class="kpi-card__content">
+          <h4 class="kpi-card__title">Produtos Alocados</h4>
+          <div class="kpi-card__value">{{ dashboardData.totalLocations }}</div>
+          <p class="kpi-card__description">Produtos com localização</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Records Section -->
+  <div class="overview__recent-section">
+    <h3 class="overview__section-title">Últimos Registros</h3>
+    
+    <div class="overview__recent-grid">
+      <!-- Recent Products -->
+      <div class="recent-card recent-card--products">
+        <h4 class="recent-card__title">Produtos Recentes</h4>
+        <div *ngIf="loadingRecent" class="recent-card__loading">
+          <div class="loading__spinner loading__spinner--small"></div>
+        </div>
+        <div *ngIf="!loadingRecent" class="recent-card__list">
+          <div 
+            *ngFor="let product of recentProducts" 
+            class="recent-item recent-item--product"
+          >
+            <div class="recent-item__info">
+              <span class="recent-item__name">{{ product.name }}</span>
+              <span class="recent-item__price">{{ product.formattedPrice }}</span>
+            </div>
+            <span class="recent-item__id">#{{ product.id }}</span>
+          </div>
+          <div *ngIf="recentProducts.length === 0" class="recent-card__empty">
+            Nenhum produto encontrado
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Shelving Units -->
+      <div class="recent-card recent-card--shelving">
+        <h4 class="recent-card__title">Estantes Recentes</h4>
+        <div *ngIf="loadingRecent" class="recent-card__loading">
+          <div class="loading__spinner loading__spinner--small"></div>
+        </div>
+        <div *ngIf="!loadingRecent" class="recent-card__list">
+          <div 
+            *ngFor="let unit of recentShelvingUnits" 
+            class="recent-item recent-item--shelving"
+          >
+            <div class="recent-item__info">
+              <span class="recent-item__name">{{ unit.displayName }}</span>
+              <span class="recent-item__description">{{ unit.description }}</span>
+            </div>
+            <span class="recent-item__id">#{{ unit.id }}</span>
+          </div>
+          <div *ngIf="recentShelvingUnits.length === 0" class="recent-card__empty">
+            Nenhuma estante encontrada
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Locations -->
+      <div class="recent-card recent-card--locations">
+        <h4 class="recent-card__title">Localizações Recentes</h4>
+        <div *ngIf="loadingRecent" class="recent-card__loading">
+          <div class="loading__spinner loading__spinner--small"></div>
+        </div>
+        <div *ngIf="!loadingRecent" class="recent-card__list">
+          <div 
+            *ngFor="let location of recentLocations" 
+            class="recent-item recent-item--location"
+          >
+            <div class="recent-item__info">
+              <span class="recent-item__name">{{ location.productName }}</span>
+              <span class="recent-item__location">{{ location.displayLocation }}</span>
+            </div>
+            <span class="recent-item__id">#{{ location.id }}</span>
+          </div>
+          <div *ngIf="recentLocations.length === 0" class="recent-card__empty">
+            Nenhuma localização encontrada
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,29 @@
+<div *ngIf="visible" class="modal__overlay" (click)="onCancel()">
+  <div class="modal__content confirmation-dialog" (click)="$event.stopPropagation()">
+    <div class="modal__header">
+      <h3>{{ data.title }}</h3>
+      <button class="modal__close" (click)="onCancel()">✕</button>
+    </div>
+    <div class="confirmation-dialog__body">
+      <div class="confirmation-dialog__icon confirmation-dialog__icon--{{ data.type || 'danger' }}">
+        {{ data.icon || getDefaultIcon() }}
+      </div>
+      <h4 class="confirmation-dialog__title">{{ data.title }}</h4>
+      <p class="confirmation-dialog__message" [innerHTML]="data.message"></p>
+      <div class="confirmation-dialog__actions">
+        <button 
+          class="confirmation-dialog__cancel-btn" 
+          (click)="onCancel()"
+        >
+          {{ data.cancelText || 'Cancelar' }}
+        </button>
+        <button 
+          class="confirmation-dialog__confirm-btn confirmation-dialog__confirm-btn--{{ data.type || 'danger' }}" 
+          (click)="onConfirm()"
+        >
+          {{ data.confirmText || 'Confirmar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

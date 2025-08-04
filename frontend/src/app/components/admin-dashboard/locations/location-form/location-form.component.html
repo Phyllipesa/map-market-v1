@@ -1,0 +1,110 @@
+<div *ngIf="visible" class="modal__overlay" (click)="onCancelClick()">
+  <div class="modal__content" (click)="$event.stopPropagation()">
+    <div class="modal__header">
+      <h3>{{ modalTitle }}</h3>
+      <button class="modal__close" (click)="onCancelClick()">✕</button>
+    </div>
+    <form [formGroup]="locationForm" (ngSubmit)="onSubmit()" class="location-form">
+      <div class="modal__body">
+        <div class="form__group">
+          <label class="form__label" for="productSelect">Produto</label>
+          <select
+            id="productSelect"
+            formControlName="productId"
+            class="form__select"
+            [class.form__select--error]="productId?.invalid && productId?.touched"
+          >
+            <option value="">Selecione um produto</option>
+            <option *ngFor="let product of products" [value]="product.id">
+              {{ product.name }}
+            </option>
+          </select>
+          <div *ngIf="productId?.invalid && productId?.touched" class="form__error">
+            {{ getProductErrorMessage() }}
+          </div>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="shelvingUnitSelect">Estante</label>
+          <select
+            id="shelvingUnitSelect"
+            formControlName="shelving_unit_id"
+            class="form__select"
+            [class.form__select--error]="shelving_unit_id?.invalid && shelving_unit_id?.touched"
+          >
+            <option value="">Selecione uma estante</option>
+            <option *ngFor="let unit of shelvingUnits" [value]="unit.id">
+              {{ unit.displayName }}
+            </option>
+          </select>
+          <div *ngIf="shelving_unit_id?.invalid && shelving_unit_id?.touched" class="form__error">
+            {{ getShelvingUnitErrorMessage() }}
+          </div>
+        </div>
+
+        <div class="form__group">
+          <label class="form__label" for="sideSelect">Lado</label>
+          <select
+            id="sideSelect"
+            formControlName="side"
+            class="form__select"
+            [class.form__select--error]="side?.invalid && side?.touched"
+          >
+            <option value="">Selecione o lado</option>
+            <option *ngFor="let option of sideOptions" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+          <div *ngIf="side?.invalid && side?.touched" class="form__error">
+            {{ getSideErrorMessage() }}
+          </div>
+        </div>
+
+        <div class="location-form__position-group">
+          <div class="form__group">
+            <label class="form__label" for="partSelect">Parte</label>
+            <select
+              id="partSelect"
+              formControlName="part"
+              class="form__select"
+              [class.form__select--error]="part?.invalid && part?.touched"
+            >
+              <option *ngFor="let option of partOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+            <div *ngIf="part?.invalid && part?.touched" class="form__error">
+              {{ getPartErrorMessage() }}
+            </div>
+          </div>
+
+          <div class="form__group">
+            <label class="form__label" for="shelfSelect">Prateleira</label>
+            <select
+              id="shelfSelect"
+              formControlName="shelf"
+              class="form__select"
+              [class.form__select--error]="shelf?.invalid && shelf?.touched"
+            >
+              <option *ngFor="let option of shelfOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+            <div *ngIf="shelf?.invalid && shelf?.touched" class="form__error">
+              {{ getShelfErrorMessage() }}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal__actions">
+        <button type="button" class="location-form__cancel-btn" (click)="onCancelClick()">
+          Cancelar
+        </button>
+        <button type="submit" class="location-form__save-btn" [disabled]="locationForm.invalid">
+          {{ submitButtonText }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

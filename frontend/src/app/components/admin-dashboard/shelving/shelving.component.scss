@@ -1,0 +1,74 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+@use '../styles/shared' as *;
+
+.shelving {
+  &__unit-badge {
+    background-color: $primary-color;
+    color: white;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $radius-sm;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+  }
+
+  &__side-b {
+    &--empty {
+      color: $gray-400;
+      font-style: italic;
+    }
+  }
+
+  // Additional specific styles for shelving component
+  .table__cell {
+    &:first-child {
+      font-weight: $font-weight-medium;
+      color: $gray-600;
+    }
+
+    &:nth-child(3),
+    &:nth-child(4) {
+      font-weight: $font-weight-medium;
+    }
+  }
+}
+
+// Responsive adjustments
+@include tablet {
+  .shelving .table__actions {
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+
+  .table {
+    &__header {
+      &:nth-child(1) { // ID column
+        display: none;
+      }
+    }
+
+    &__cell {
+      &:nth-child(1) { // ID column
+        display: none;
+      }
+    }
+  }
+}
+
+@include mobile {
+  .table {
+    &__header {
+      &:nth-child(1), // ID
+      &:nth-child(4) { // Side B
+        display: none;
+      }
+    }
+
+    &__cell {
+      &:nth-child(1), // ID
+      &:nth-child(4) { // Side B
+        display: none;
+      }
+    }
+  }
+}

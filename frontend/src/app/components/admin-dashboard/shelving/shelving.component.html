@@ -1,0 +1,76 @@
+<div class="shelving">
+  <!-- Section Header -->
+  <div class="section-header">
+    <h2 class="section-header__title">Gerenciamento de Estantes</h2>
+    <button class="section-header__action" (click)="openAddModal()">
+      ➕ Adicionar Estante
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    <div class="loading__spinner"></div>
+    <p class="loading__text">Carregando estantes...</p>
+  </div>
+
+  <!-- Shelving Units Table -->
+  <div *ngIf="!loading" class="table__container">
+    <table class="table__element">
+      <thead>
+        <tr>
+          <th class="table__header">ID</th>
+          <th class="table__header">Unidade</th>
+          <th class="table__header">Lado A</th>
+          <th class="table__header">Lado B</th>
+          <th class="table__header">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let unit of shelvingUnits" class="table__row">
+          <td class="table__cell">{{ unit.id }}</td>
+          <td class="table__cell">{{ unit.unit }}</td>
+          <td class="table__cell">{{ unit.sideA }}</td>
+          <td class="table__cell">
+            <span [class.shelving__side-b--empty]="!unit.sideB">
+              {{ unit.sideB || 'Não definido' }}
+            </span>
+          </td>
+          <td class="table__cell">
+            <div class="table__actions">
+              <button 
+                class="action-btn action-btn--edit" 
+                (click)="editShelvingUnit(unit)"
+                title="Editar Estante"
+              >
+                ✏️
+              </button>
+              <button 
+                class="action-btn action-btn--delete" 
+                (click)="deleteShelvingUnit(unit)"
+                title="Excluir Estante"
+              >
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Empty state -->
+    <div *ngIf="shelvingUnits.length === 0" class="table__empty">
+      <p>Nenhuma estante encontrada</p>
+      <button class="table__empty-action" (click)="openAddModal()">
+        Adicionar primeira estante
+      </button>
+    </div>
+  </div>
+
+  <!-- Shelving Form Modal -->
+  <app-shelving-form
+    [visible]="showModal"
+    [editingUnit]="editingUnit"
+    (onSave)="onShelvingFormSave($event)"
+    (onCancel)="onShelvingFormCancel()">
+  </app-shelving-form>
+</div>

@@ -1,0 +1,248 @@
+@use '../styles/variables' as *;
+@use '../styles/mixins' as *;
+
+// Shared Component Styles
+
+// Modal Base
+.modal {
+  &__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    @include flex-center;
+    z-index: $z-modal;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  &__content {
+    background-color: $bg-card;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-xl;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.3s ease-out;
+  }
+
+  &__header {
+    @include flex-between;
+    padding: $spacing-lg;
+    border-bottom: 1px solid $gray-200;
+
+    h3 {
+      margin: 0;
+      color: $gray-800;
+      font-size: $font-size-lg;
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__close {
+    background-color: transparent;
+    border: none;
+    font-size: 1.25rem;
+    color: $gray-500;
+    cursor: pointer;
+    padding: $spacing-xs;
+    border-radius: $spacing-xs;
+    transition: background-color $transition-base;
+
+    &:hover {
+      background-color: $gray-100;
+    }
+  }
+
+  &__body {
+    padding: $spacing-lg;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: flex-end;
+    margin-top: $spacing-lg;
+    padding: $spacing-lg;
+  }
+}
+
+// Form Components
+.form {
+  &__group {
+    margin-bottom: $spacing-md;
+  }
+
+  &__label {
+    @include form-label;
+  }
+
+  &__input {
+    @include form-input;
+
+    &--error {
+      border-color: $error-color;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+  }
+
+  &__select {
+    @include form-input;
+    cursor: pointer;
+
+    &--error {
+      border-color: $error-color;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+    }
+  }
+
+  &__error {
+    color: $error-color;
+    font-size: $font-size-xs;
+    margin-top: $spacing-xs;
+    display: block;
+  }
+}
+
+// Table Components
+.table {
+  &__container {
+    @include card-base;
+  }
+
+  &__element {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  &__header {
+    background-color: #F8FAFC;
+    color: $gray-700;
+    font-weight: $font-weight-semibold;
+    padding: $spacing-md;
+    text-align: center;
+    border-bottom: 1px solid $gray-200;
+    font-size: $font-size-sm;
+  }
+
+  &__cell {
+    padding: $spacing-md;
+    border-bottom: 1px solid $gray-100;
+    color: $gray-800;
+    text-align: center;
+  }
+
+  &__row {
+    &:hover {
+      background-color: $bg-hover;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-sm;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+// Action Button
+.action-btn {
+  background-color: transparent;
+  border: none;
+  border-radius: $radius-sm;
+  cursor: pointer;
+  transition: background-color $transition-base;
+  font-size: $font-size-base;
+  padding: $spacing-xs;
+
+  &--edit:hover {
+    background-color: #DBEAFE;
+  }
+
+  &--delete:hover {
+    background-color: #FEE2E2;
+  }
+}
+
+// Loading State
+.loading {
+  @include flex-center;
+  flex-direction: column;
+  padding: $spacing-2xl;
+  @include card-base;
+
+  &__spinner {
+    @include loading-spinner;
+    margin-bottom: $spacing-md;
+  }
+
+  &__text {
+    color: $gray-500;
+    font-size: $font-size-sm;
+  }
+}
+
+// Error State
+.error {
+  @include flex-center;
+  flex-direction: column;
+  padding: $spacing-2xl;
+  @include card-base;
+
+  &__text {
+    color: $error-color;
+    margin-bottom: $spacing-md;
+    text-align: center;
+  }
+
+  &__retry {
+    @include button-primary;
+  }
+}
+
+// Section Header
+.section-header {
+  @include flex-between;
+  margin-bottom: $spacing-lg;
+  @include card-base;
+  padding: $spacing-lg;
+
+  &__title {
+    margin: 0;
+    color: $gray-800;
+    font-size: $font-size-xl;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__action {
+    @include button-primary;
+  }
+}
+
+// Responsive Utilities
+@include mobile {
+  .modal__content {
+    margin: $spacing-md;
+    width: calc(100% - #{$spacing-xl});
+  }
+
+  .modal__actions {
+    flex-direction: column;
+  }
+
+  .table__container {
+    overflow-x: auto;
+
+    .table__element {
+      min-width: 600px;
+    }
+  }
+
+  .table__actions {
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+}

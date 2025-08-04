@@ -1,0 +1,58 @@
+.shelf-container {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border: 2px solid #E5E7EB;
+  width: 160px;
+  height: 180px;
+
+  .shelf-header {
+    background-color: #1F2937;
+    color: white;
+    padding: 0.5rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+
+  .shelves-grid {
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    height: calc(100% - 2.5rem);
+  }
+
+  .shelf {
+    border-bottom: 1px solid #E5E7EB;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+    background-color: #F9FAFB;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &.highlighted {
+      background-color: #10B981;
+      animation: pulse 2s infinite;
+
+      .shelf-label {
+        color: white;
+        font-weight: 600;
+      }
+    }
+
+    &-label {
+      font-size: 0.625rem;
+      color: #6B7280;
+      font-weight: 500;
+    }
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.8; }
+}

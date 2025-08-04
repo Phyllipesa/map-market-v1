@@ -1,0 +1,192 @@
+@use './styles/variables' as *;
+@use './styles/mixins' as *;
+@use './styles/shared' as *;
+@use './styles/animations' as *;
+
+.dashboard {
+  min-height: 100vh;
+  background-color: $bg-primary;
+
+  &__header {
+    background-color: $bg-card;
+    box-shadow: $shadow-sm;
+    border-bottom: 1px solid $gray-200;
+    align-content: center;
+    height: 8rem;
+  }
+
+  &__header-content {
+    @include container;
+    @include flex-between;
+    padding-top: $spacing-md;
+    padding-bottom: $spacing-md;
+  }
+
+  &__title {
+    margin: 0;
+    color: $gray-800;
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__header-actions {
+    display: flex;
+    gap: $spacing-md;
+  }
+
+  &__home-btn {
+    @include button-secondary;
+    padding: $spacing-sm $spacing-md;
+  }
+
+  &__logout-btn {
+    @include button-danger;
+    padding: $spacing-sm $spacing-md;
+  }
+
+  &__content {
+    @include container;
+    padding-top: $spacing-xl;
+    padding-bottom: $spacing-xl;
+  }
+
+  &__nav {
+    display: flex;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-xl;
+    background-color: $bg-card;
+    padding: $spacing-sm;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-md;
+  }
+
+  &__nav-tab {
+    flex: 1;
+    @include button-base;
+    background-color: transparent;
+    color: $gray-500;
+    padding: 0.75rem $spacing-md;
+    border-radius: $radius-md;
+    text-align: center;
+
+    &:hover {
+      background-color: $gray-100;
+      color: $gray-700;
+    }
+
+    &--active {
+      background-color: $primary-color;
+      color: white;
+      box-shadow: 0 2px 4px rgba(76, 175, 80, 0.3);
+    }
+  }
+
+  &__tab-content {
+    .fade-in {
+      @include fade-in;
+    }
+  }
+}
+
+// Delete Modal Specific Styles
+.delete-modal {
+  .modal__content {
+    max-width: 400px;
+  }
+
+  &__body {
+    padding: $spacing-lg;
+    text-align: center;
+  }
+
+  &__icon {
+    width: 4rem;
+    height: 4rem;
+    background-color: #FEE2E2;
+    border-radius: 50%;
+    @include flex-center;
+    margin: 0 auto $spacing-md;
+    font-size: 1.5rem;
+    color: $error-color;
+  }
+
+  &__title {
+    margin: 0 0 $spacing-sm 0;
+    color: $gray-800;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__message {
+    margin: 0 0 $spacing-lg 0;
+    color: $gray-600;
+    line-height: 1.5;
+  }
+
+  &__item-name {
+    font-weight: $font-weight-semibold;
+    color: $gray-800;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: center;
+  }
+
+  &__cancel-btn {
+    @include button-secondary;
+  }
+
+  &__confirm-btn {
+    @include button-danger;
+  }
+}
+
+// Responsive Design
+@include tablet {
+  .dashboard {
+    &__header-content {
+      flex-direction: column;
+      gap: $spacing-md;
+      text-align: center;
+    }
+    
+    &__content {
+      padding-left: $spacing-md;
+      padding-right: $spacing-md;
+    }
+    
+    &__nav {
+      flex-direction: column;
+
+      &-tab {
+        flex: none;
+      }
+    }
+  }
+}
+
+@include mobile {
+  .dashboard {
+    &__title {
+      font-size: $font-size-xl;
+    }
+
+    &__header-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+  }
+
+  .delete-modal {
+    .modal__content {
+      margin: $spacing-md;
+      width: calc(100% - #{$spacing-xl});
+    }
+
+    &__actions {
+      flex-direction: column;
+    }
+  }
+}

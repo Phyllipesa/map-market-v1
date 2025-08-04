@@ -1,0 +1,63 @@
+<div *ngIf="visible" class="modal__overlay" (click)="onCancelClick()">
+  <div class="modal__content" (click)="$event.stopPropagation()">
+    <div class="modal__header">
+      <h3>{{ modalTitle }}</h3>
+      <button class="modal__close" (click)="onCancelClick()">✕</button>
+    </div>
+    <form [formGroup]="shelvingForm" (ngSubmit)="onSubmit()" class="shelving-form">
+      <div class="modal__body">
+        <div class="form__group">
+          <label class="form__label" for="unitNumber">Número da Unidade</label>
+          <input
+            type="number"
+            id="unitNumber"
+            formControlName="unit"
+            class="form__input"
+            [class.form__input--error]="unit?.invalid && unit?.touched"
+            min="1"
+            placeholder="Digite o número da unidade"
+          />
+          <div *ngIf="unit?.invalid && unit?.touched" class="form__error">
+            {{ getUnitErrorMessage() }}
+          </div>
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="sideA">Lado A</label>
+          <input
+            type="text"
+            id="sideA"
+            formControlName="sideA"
+            class="form__input"
+            [class.form__input--error]="sideA?.invalid && sideA?.touched"
+            placeholder="Digite a descrição do lado A"
+          />
+          <div *ngIf="sideA?.invalid && sideA?.touched" class="form__error">
+            {{ getSideAErrorMessage() }}
+          </div>
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="sideB">Lado B (Opcional)</label>
+          <input
+            type="text"
+            id="sideB"
+            formControlName="sideB"
+            class="form__input"
+            [class.form__input--error]="sideB?.invalid && sideB?.touched"
+            placeholder="Digite a descrição do lado B"
+          />
+          <div *ngIf="sideB?.invalid && sideB?.touched" class="form__error">
+            {{ getSideBErrorMessage() }}
+          </div>
+        </div>
+      </div>
+      <div class="modal__actions">
+        <button type="button" class="shelving-form__cancel-btn" (click)="onCancelClick()">
+          Cancelar
+        </button>
+        <button type="submit" class="shelving-form__save-btn" [disabled]="shelvingForm.invalid">
+          {{ submitButtonText }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

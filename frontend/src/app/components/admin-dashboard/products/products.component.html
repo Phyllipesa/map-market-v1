@@ -1,0 +1,73 @@
+<div class="products">
+  <!-- Section Header -->
+  <div class="section-header">
+    <h2 class="section-header__title">Gerenciamento de Produtos</h2>
+
+    <!-- Product Form Modal -->
+    <app-product-form
+      [visible]="showModal"
+      [editingProduct]="editingProduct"
+      (onSave)="onProductFormSave($event)"
+      (onCancel)="onProductFormCancel()">
+    </app-product-form>
+
+    <button class="section-header__action" (click)="openAddModal()">
+      ➕ Adicionar Produto
+    </button>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    <div class="loading__spinner"></div>
+    <p class="loading__text">Carregando produtos...</p>
+  </div>
+
+
+
+  <!-- Products Table -->
+  <div *ngIf="!loading" class="table__container">
+    <table class="table__element">
+      <thead>
+        <tr>
+          <th class="table__header">ID</th>
+          <th class="table__header">Nome</th>
+          <th class="table__header">Preço</th>
+          <th class="table__header">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products" class="table__row">
+          <td class="table__cell">{{ product.id }}</td>
+          <td class="table__cell">{{ product.name }}</td>
+          <td class="table__cell">{{ product.formattedPrice }}</td>
+          <td class="table__cell">
+            <div class="table__actions">
+              <button 
+                class="action-btn action-btn--edit" 
+                (click)="editProduct(product)"
+                title="Editar Produto"
+              >
+                ✏️
+              </button>
+              <button 
+                class="action-btn action-btn--delete" 
+                (click)="deleteProduct(product)"
+                title="Excluir Produto"
+              >
+                🗑️
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Empty state -->
+    <div *ngIf="products.length === 0" class="table__empty">
+      <p>Nenhum produto encontrado</p>
+      <button class="table__empty-action" (click)="openAddModal()">
+        Adicionar primeiro produto
+      </button>
+    </div>
+  </div>
+</div>

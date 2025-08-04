@@ -1,0 +1,103 @@
+@use 'sass:color';
+@use '../../admin-dashboard/styles/variables' as *;
+@use '../../admin-dashboard/styles/mixins' as *;
+@use '../../admin-dashboard/styles/shared' as *;
+
+.confirmation-dialog {
+  max-width: 400px;
+
+  &__body {
+    padding: $spacing-lg;
+    text-align: center;
+  }
+
+  &__icon {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    @include flex-center;
+    margin: 0 auto $spacing-md;
+    font-size: 1.5rem;
+
+    &--danger {
+      background-color: #FEE2E2;
+      color: $error-color;
+    }
+
+    &--warning {
+      background-color: #FEF3C7;
+      color: $warning-color;
+    }
+
+    &--info {
+      background-color: #DBEAFE;
+      color: $secondary-color;
+    }
+  }
+
+  &__title {
+    margin: 0 0 $spacing-sm 0;
+    color: $gray-800;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+  }
+
+  &__message {
+    margin: 0 0 $spacing-lg 0;
+    color: $gray-600;
+    line-height: 1.5;
+  }
+
+  &__actions {
+    display: flex;
+    gap: $spacing-md;
+    justify-content: center;
+  }
+
+  &__cancel-btn {
+    @include button-secondary;
+  }
+
+  &__confirm-btn {
+    @include button-base;
+    color: white;
+
+    &--danger {
+      background-color: $error-color;
+
+      &:hover:not(:disabled) {
+        background-color: $error-hover;
+      }
+    }
+
+    &--warning {
+      background-color: $warning-color;
+
+      &:hover:not(:disabled) {
+        background-color: color.adjust($warning-color, $lightness: -10%);
+      }
+    }
+
+    &--info {
+      background-color: $secondary-color;
+
+      &:hover:not(:disabled) {
+        background-color: $secondary-hover;
+      }
+    }
+  }
+}
+
+// Responsive Design
+@include mobile {
+  .confirmation-dialog {
+    .modal__content {
+      margin: $spacing-md;
+      width: calc(100% - #{$spacing-xl});
+    }
+
+    &__actions {
+      flex-direction: column;
+    }
+  }
+}

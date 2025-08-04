@@ -1,0 +1,50 @@
+<div *ngIf="visible" class="modal__overlay" (click)="onCancelClick()">
+  <div class="modal__content" (click)="$event.stopPropagation()">
+    <div class="modal__header">
+      <h3>{{ modalTitle }}</h3>
+      <button class="modal__close" (click)="onCancelClick()">✕</button>
+    </div>
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="product-form">
+      <div class="modal__body">
+        <div class="form__group">
+          <label class="form__label" for="productName">Nome do Produto</label>
+          <input
+            type="text"
+            id="productName"
+            formControlName="name"
+            class="form__input"
+            [class.form__input--error]="name?.invalid && name?.touched"
+            placeholder="Digite o nome do produto"
+          />
+          <div *ngIf="name?.invalid && name?.touched" class="form__error">
+            {{ getNameErrorMessage() }}
+          </div>
+        </div>
+        <div class="form__group">
+          <label class="form__label" for="productPrice">Preço (R$)</label>
+          <input
+            type="number"
+            id="productPrice"
+            formControlName="price"
+            class="form__input"
+            [class.form__input--error]="price?.invalid && price?.touched"
+            step="0.01"
+            min="0"
+            placeholder="0,00"
+          />
+          <div *ngIf="price?.invalid && price?.touched" class="form__error">
+            {{ getPriceErrorMessage() }}
+          </div>
+        </div>
+      </div>
+      <div class="modal__actions">
+        <button type="button" class="product-form__cancel-btn" (click)="onCancelClick()">
+          Cancelar
+        </button>
+        <button type="submit" class="product-form__save-btn" [disabled]="productForm.invalid">
+          {{ submitButtonText }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

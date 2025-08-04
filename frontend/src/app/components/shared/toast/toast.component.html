@@ -1,0 +1,18 @@
+<div 
+  *ngIf="visible" 
+  class="toast toast--{{ type }}"
+  [class.toast--dismissible]="dismissible"
+>
+  <div class="toast__content">
+    <span class="toast__icon">{{ getIcon() }}</span>
+    <span class="toast__message">{{ message }}</span>
+  </div>
+  <button 
+    *ngIf="dismissible" 
+    class="toast__close" 
+    (click)="dismiss()"
+    aria-label="Fechar notificação"
+  >
+    ✕
+  </button>
+</div>

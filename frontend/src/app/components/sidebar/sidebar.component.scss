@@ -1,0 +1,111 @@
+@use './styles/mixins' as *;
+
+.sidebar-container {
+  @include card-base;
+  height: 100%;
+  background-color: white;
+  border-right: 1px solid #E5E7EB;
+  display: flex;
+  flex-direction: column;
+
+  .search-section {
+    padding: 1rem;
+    border-bottom: 1px solid #E5E7EB;
+
+    .search-input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #D1D5DB;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: #3B82F6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+    }
+  }
+
+  .products-section {
+    flex: 1;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .section-title {
+      margin: 0;
+      padding: 1rem;
+      color: #1F2937;
+      font-size: 1rem;
+      font-weight: 600;
+      border-bottom: 1px solid #E5E7EB;
+    }
+
+    .loading, 
+    .error {
+      padding: 1rem;
+      text-align: center;
+      color: #6B7280;
+      font-size: 0.875rem;
+    }
+
+    .error {
+      color: #EF4444;
+    }
+
+    .products-list {
+      flex: 1;
+      overflow-y: auto;
+
+      .product-item {
+        padding: 0.75rem 1rem;
+        border-bottom: 1px solid #F3F4F6;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+          background-color: #F9FAFB;
+        }
+
+        &:active {
+          background-color: #F3F4F6;
+        }
+
+        &.selected {
+          background-color: #3B82F6;
+          color: white;
+
+          &:hover {
+            background-color: #2563EB;
+          }
+        }
+
+        .product-name {
+          font-weight: 500;
+          color: inherit;
+          font-size: 0.875rem;
+        }
+      }
+
+      .no-products {
+        padding: 2rem 1rem;
+        text-align: center;
+        color: #6B7280;
+        font-size: 0.875rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar-container {
+    height: auto;
+    max-height: 200px;
+
+    .products-section .products-list {
+      max-height: 120px;
+    }
+  }
+}
